@@ -6,11 +6,12 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, required
 Plugin 'Valloric/YouCompleteMe' " Auto code completion
-Plugin 'JamshedVesuna/vim-markdown-preview' " markdown preview (CTRL+p to preview)
 Plugin 'lervag/vimtex' " latex plugin
 Plugin 'scrooloose/nerdtree' " sidebar plugin
 Plugin 'bronson/vim-trailing-whitespace' " hightlight  and remove trailing whitespace
-"Plugin 'shime/livedown'
+Plugin 'JamshedVesuna/vim-markdown-preview' " markdown preview (CTRL+p to preview)
+"Plugin 'sudar/vim-arduino-syntax'
+"Plugin 'plasticboy/vim-markdown' " markdown editing features
 "Plugin 'mzlogin/vim-markdown-toc'
 " All of your Plugins must be added before the following line
 " :PluginList       - lists configured plugins
@@ -20,8 +21,8 @@ call vundle#end()
 
 colorscheme monokai  " awesome color scheme similar to sublime/textmate
 syntax enable  " enable syntax processing
-"filetype plugin indent on  " load filetype-specific indent files
-filetype plugin on  " used this instead to ignore plugin indent changes
+filetype plugin indent on  " load filetype-specific indent files
+"filetype plugin on  " used this instead to ignore plugin indent changes
 set ai   " automatic indent based on current line
 set number   " show line numbers
 set showcmd  " show command in bottom bar
@@ -67,58 +68,24 @@ for c in range(char2nr('A'), char2nr('Z'))
   execute 'lnoremap ' . nr2char(c) . ' ' . nr2char(c+32)
 endfo
 
-" latex configuration
-let g:tex_flavor = "latex" " latex file type association
-let g:vimtex_complete_recursive_bib=1
-let g:vimtex_latexmk_continuous=0
-let g:vimtex_latexmk_background=1
-
-" spell checking
-set spell
-set spelllang=en
-set spellfile=/media/muhaftab/bin/Dropbox/linux/vim/en.utf-8.add
-
 " shortcuts
 imap jj <Esc>  " use jj to escape insert mode
 imap JJ <Esc>  " use JJ to escape insert mode
 execute "set <M-l>=\el"
-nmap mdv :LivedownPreview<CR> " markdown preview
-let vim_markdown_preview_github=1
-nmap \nn :NERDTreeToggle<CR> " toggle sidebar
+
+nmap \nt :NERDTreeToggle<CR> " toggle sidebar
 
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
-" change j,k to navigate screen line instead of file line
-nnoremap j gj
-nnoremap k gk
-" also add reverse behavior in case you want to navigate file lines
-nnoremap gj j
-nnoremap gk k
-
-" change $,^ to navigate screen line instead of file line
-nnoremap $ g$
-nnoremap ^ g^
-nnoremap 0 g0
-
-" also add reverse behavior in case you want to navigate file lines
-nnoremap g$ $
-nnoremap g^ ^
-nnoremap g0 0
-
-" change v$,v^ to visual copy follosing screen lines instead of file lines
-nnoremap v$ vg$
-nnoremap v^ vg^
-nnoremap v0 vg0
-
-" also add reverse behavior in case you want to navigate file lines
-nnoremap vg$ v$
-nnoremap vg^ v^
-nnoremap vg0 v0
-
 " remap these to <nop> so that they don’t do anything in normal mode
 nnoremap <F1> <nop>
 nnoremap Q <nop>
 nnoremap K <nop>
+
+"Youcompleteme fix
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_filetype_specific_completion_to_disable = {
+  \ 'cpp': 1
+  \ }
