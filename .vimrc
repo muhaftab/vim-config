@@ -1,3 +1,7 @@
+" References
+"   https://dougblack.io/words/a-good-vimrc.html
+"   https://amix.dk/vim/vimrc.html
+
 set nocompatible  " be iMproved, required
 filetype off  " required
 " set the runtime path to include Vundle and initialize
@@ -86,6 +90,42 @@ nnoremap K <nop>
 
 "Youcompleteme fix
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-let g:ycm_filetype_specific_completion_to_disable = {
-  \ 'cpp': 1
-  \ }
+"let g:ycm_filetype_specific_completion_to_disable = {
+"  \ 'cpp': 0
+"  \ }
+
+" change j,k to navigate screen line instead of file line
+nnoremap j gj
+nnoremap k gk
+" also add reverse behavior in case you want to navigate file lines
+nnoremap gj j
+nnoremap gk k
+
+" change $,^ to navigate screen line instead of file line
+nnoremap $ g$
+nnoremap ^ g^
+nnoremap 0 g0
+
+" also add reverse behavior in case you want to navigate file lines
+nnoremap g$ $
+nnoremap g^ ^
+nnoremap g0 0
+
+" change v$,v^ to visual copy following screen lines instead of file lines
+nnoremap v$ vg$
+nnoremap v^ vg^
+nnoremap v0 vg0
+
+" also add reverse behavior in case you want to navigate file lines
+nnoremap vg$ v$
+nnoremap vg^ v^
+nnoremap vg0 v0
+
+
+" move to beginning/end of line
+nnoremap B ^
+nnoremap E $
+
+" $/^ doesn't do anything
+"nnoremap $ <nop>
+"nnoremap ^ <nop>
