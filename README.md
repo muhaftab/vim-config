@@ -71,6 +71,7 @@ ln -s $DIR/.vimrc ~/.vimrc
 ln -s $DIR/colors ~/.vim/colors
 ln -s $DIR/syntax ~/.vim/syntax
 ln -s $DIR/ftplugin ~/.vim/ftplugin
+ln -s $DIR/plugin ~/.vim/plugin
 ln -s $DIR/dict ~/.vim/dict
 </pre>
 </li>
