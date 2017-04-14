@@ -14,6 +14,7 @@ Plugin 'lervag/vimtex' " latex plugin
 Plugin 'scrooloose/nerdtree' " sidebar plugin
 Plugin 'bronson/vim-trailing-whitespace' " hightlight  and remove trailing whitespace
 Plugin 'JamshedVesuna/vim-markdown-preview' " markdown preview (CTRL+p to preview)
+Plugin 'suxpert/vimcaps' " disable CAPSLOCK
 "Plugin 'sudar/vim-arduino-syntax'
 "Plugin 'plasticboy/vim-markdown' " markdown editing features
 "Plugin 'mzlogin/vim-markdown-toc'
@@ -64,6 +65,8 @@ set statusline+=,  " Separator
 set statusline+=%l  " Current line
 set statusline+=/  " Separator
 set statusline+=%L  " Total lines
+set statusline+=\ \   " Separator
+"set stl+=%{vimcaps#statusline(1)} " show CAPSLOCK status
 set laststatus=2  " always show status line
 
 " alternate key combination <C-^> for caps locking
@@ -71,11 +74,34 @@ for c in range(char2nr('A'), char2nr('Z'))
   execute 'lnoremap ' . nr2char(c+32) . ' ' . nr2char(c)
   execute 'lnoremap ' . nr2char(c) . ' ' . nr2char(c+32)
 endfo
+noremap  \\ :let &l:imi = !&l:imi<CR>
+inoremap \\ <C-O>:let &l:imi = !&l:imi<CR>
+cnoremap \\ <C-^>
+inoremap \\ <C-^>
 
-" shortcuts
-imap jj <Esc>  " use jj to escape insert mode
-imap JJ <Esc>  " use JJ to escape insert mode
-execute "set <M-l>=\el"
+" disable caps lock in normal mode
+"au CursorHold * call TurnOffCaps()
+"set updatetime=1
+"function! Strip(input_string)
+"    return substitute(a:input_string, '^\s*\(.\{-}\)\s*$', '\1', '')
+"endfunction
+"function! Chomp(string)
+"    return substitute(a:string, '\n\+$', '', '')
+"endfunction
+"function! TurnOffCaps()
+"    let CapsState = Strip(Chomp(system("xset -q | grep Caps | cut -d':' -f3 | sed 's/[0-9]//g' | sed 's/\s//g' ")))
+"    if CapsState=="on"
+"        silent! execute ":!xdotool key Caps_Lock"
+"    endif
+"endfunction
+"autocmd VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+"autocmd VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
+
+" avoid using ESCAPE key because it's too far :)
+imap jj <Esc> " use jj to escape insert mode
+imap JJ <Esc> " use JJ to escape insert mode
+cno jj <c-c> " use jj to escape command modes
+cno JJ <c-c> " use jj to escape command modes
 
 nmap \nt :NERDTreeToggle<CR> " toggle sidebar
 
@@ -83,6 +109,7 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
 " remap these to <nop> so that they don’t do anything in normal mode
 nnoremap <F1> <nop>
 nnoremap Q <nop>
@@ -126,6 +153,6 @@ nnoremap vg0 v0
 nnoremap B ^
 nnoremap E $
 
-" $/^ doesn't do anything
+" $ and ^ doesn't do anything
 "nnoremap $ <nop>
 "nnoremap ^ <nop>
