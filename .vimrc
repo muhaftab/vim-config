@@ -54,20 +54,20 @@ set nolist  " list disables linebreak
 "set formatoptions-=t
 
 " add formatted status line
-set statusline=%f  " Path to the file
-set statusline+=\ \   " Separator
-set statusline+=type:%y  " File Type
-set statusline+=\ \   " Separator
-set statusline+=format:[%{&ff}]
-set statusline+=%=  " Switch to the right side
-set statusline+=%v  " current column
-set statusline+=,  " Separator
-set statusline+=%l  " Current line
-set statusline+=/  " Separator
-set statusline+=%L  " Total lines
-set statusline+=\ \   " Separator
-"set stl+=%{vimcaps#statusline(1)} " show CAPSLOCK status
-set laststatus=2  " always show status line
+"set statusline=%f  " Path to the file
+"set statusline+=\ \   " Separator
+"set statusline+=type:%y  " File Type
+"set statusline+=\ \   " Separator
+"set statusline+=format:[%{&ff}]
+"set statusline+=%=  " Switch to the right side
+"set statusline+=%v  " current column
+"set statusline+=,  " Separator
+"set statusline+=%l  " Current line
+"set statusline+=/  " Separator
+"set statusline+=%L  " Total lines
+"set statusline+=\ \   " Separator
+""set stl+=%{vimcaps#statusline(1)} " show CAPSLOCK status
+"set laststatus=2  " always show status line
 
 " alternate key combination <C-^> for caps locking
 for c in range(char2nr('A'), char2nr('Z'))
@@ -156,3 +156,5 @@ nnoremap E $
 " $ and ^ doesn't do anything
 "nnoremap $ <nop>
 "nnoremap ^ <nop>
+
+let vim_markdown_preview_github=2
