@@ -12,9 +12,11 @@ Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, required
 Plugin 'Valloric/YouCompleteMe' " Auto code completion
 Plugin 'lervag/vimtex' " latex plugin
 Plugin 'scrooloose/nerdtree' " sidebar plugin
+Bundle 'jistr/vim-nerdtree-tabs'
 Plugin 'bronson/vim-trailing-whitespace' " hightlight  and remove trailing whitespace
 Plugin 'JamshedVesuna/vim-markdown-preview' " markdown preview (CTRL+p to preview)
-Plugin 'suxpert/vimcaps' " disable CAPSLOCK
+Plugin 'vim-syntastic/syntastic'
+"Plugin 'suxpert/vimcaps' " disable CAPSLOCK
 "Plugin 'sudar/vim-arduino-syntax'
 "Plugin 'plasticboy/vim-markdown' " markdown editing features
 "Plugin 'mzlogin/vim-markdown-toc'
@@ -80,20 +82,20 @@ cnoremap \\ <C-^>
 inoremap \\ <C-^>
 
 " disable caps lock in normal mode
-"au CursorHold * call TurnOffCaps()
-"set updatetime=1
-"function! Strip(input_string)
-"    return substitute(a:input_string, '^\s*\(.\{-}\)\s*$', '\1', '')
-"endfunction
-"function! Chomp(string)
-"    return substitute(a:string, '\n\+$', '', '')
-"endfunction
-"function! TurnOffCaps()
-"    let CapsState = Strip(Chomp(system("xset -q | grep Caps | cut -d':' -f3 | sed 's/[0-9]//g' | sed 's/\s//g' ")))
-"    if CapsState=="on"
-"        silent! execute ":!xdotool key Caps_Lock"
-"    endif
-"endfunction
+au CursorHold * call TurnOffCaps()
+set updatetime=1
+function! Strip(input_string)
+    return substitute(a:input_string, '^\s*\(.\{-}\)\s*$', '\1', '')
+endfunction
+function! Chomp(string)
+    return substitute(a:string, '\n\+$', '', '')
+endfunction
+function! TurnOffCaps()
+    let CapsState = Strip(Chomp(system("xset -q | grep Caps | cut -d':' -f3 | sed 's/[0-9]//g' | sed 's/\s//g' ")))
+    if CapsState=="on"
+        silent! execute ":!xdotool key Caps_Lock"
+    endif
+endfunction
 "autocmd VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 "autocmd VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
 
@@ -103,7 +105,7 @@ imap JJ <Esc> " use JJ to escape insert mode
 cno jj <c-c> " use jj to escape command modes
 cno JJ <c-c> " use jj to escape command modes
 
-nmap \nt :NERDTreeToggle<CR> " toggle sidebar
+nmap \nt :NERDTreeTabsToggle<CR> " toggle sidebar
 
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -158,3 +160,12 @@ nnoremap E $
 "nnoremap ^ <nop>
 
 let vim_markdown_preview_github=2
+
+" syntastic configuration
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
