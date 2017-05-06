@@ -15,7 +15,7 @@ Plugin 'scrooloose/nerdtree' " sidebar plugin
 Bundle 'jistr/vim-nerdtree-tabs'
 Plugin 'bronson/vim-trailing-whitespace' " hightlight  and remove trailing whitespace
 Plugin 'JamshedVesuna/vim-markdown-preview' " markdown preview (CTRL+p to preview)
-Plugin 'vim-syntastic/syntastic'
+"Plugin 'vim-syntastic/syntastic'
 "Plugin 'suxpert/vimcaps' " disable CAPSLOCK
 "Plugin 'sudar/vim-arduino-syntax'
 "Plugin 'plasticboy/vim-markdown' " markdown editing features
@@ -44,7 +44,7 @@ set shiftwidth=2   " number of space characters inserted for indentation
 set expandtab  " tabs are spaces
 set pastetoggle=<F2>   " when in insert mode, press F2 to switch to paste mode
 set linespace=2  " double linespacing for clarity esp. on large screens
-set guifont=Monospace\ 14  " change default font type and size
+set guifont=Monospace\ 13  " change default font type and size
 set completeopt-=preview  " disable preview window
 set backspace=indent,eol,start " allow backspacing past start of operation
 set wrap " setup line wrapping
@@ -76,10 +76,10 @@ for c in range(char2nr('A'), char2nr('Z'))
   execute 'lnoremap ' . nr2char(c+32) . ' ' . nr2char(c)
   execute 'lnoremap ' . nr2char(c) . ' ' . nr2char(c+32)
 endfo
-noremap  \\ :let &l:imi = !&l:imi<CR>
-inoremap \\ <C-O>:let &l:imi = !&l:imi<CR>
-cnoremap \\ <C-^>
-inoremap \\ <C-^>
+noremap  '' :let &l:imi = !&l:imi<CR>
+inoremap '' <C-O>:let &l:imi = !&l:imi<CR>
+cnoremap '' <C-^>
+inoremap '' <C-^>
 
 " disable caps lock in normal mode
 au CursorHold * call TurnOffCaps()
@@ -106,6 +106,9 @@ cno jj <c-c> " use jj to escape command modes
 cno JJ <c-c> " use jj to escape command modes
 
 nmap \nt :NERDTreeTabsToggle<CR> " toggle sidebar
+let g:NERDTreeWinSize = 20
+
+
 
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -118,7 +121,10 @@ nnoremap Q <nop>
 nnoremap K <nop>
 
 "Youcompleteme fix
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_echo_current_diagnostic = 1
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+"let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 "let g:ycm_filetype_specific_completion_to_disable = {
 "  \ 'cpp': 0
 "  \ }
@@ -161,11 +167,15 @@ nnoremap E $
 
 let vim_markdown_preview_github=2
 
-" syntastic configuration
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" arduino syntax highlighting
+"au BufRead,BufNewFile *.ino,*.pde,*.cpp set filetype=arduino
+
+
+" search and replace word undder cursor
+nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
+
+" auto adjust height of quick fix window
+au FileType qf call AdjustWindowHeight(3, 10)
+function! AdjustWindowHeight(minheight, maxheight)
+  exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
+endfunction
