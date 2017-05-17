@@ -15,6 +15,12 @@ Plugin 'scrooloose/nerdtree' " sidebar plugin
 Bundle 'jistr/vim-nerdtree-tabs'
 Plugin 'bronson/vim-trailing-whitespace' " hightlight  and remove trailing whitespace
 Plugin 'JamshedVesuna/vim-markdown-preview' " markdown preview (CTRL+p to preview)
+Plugin 'vim-airline/vim-airline' " status bar
+Plugin 'vim-airline/vim-airline-themes' " status bar themes
+Plugin 'godlygeek/tabular'
+Plugin 'ervandew/supertab'
+Plugin 'mattn/emmet-vim'
+"
 "Plugin 'vim-syntastic/syntastic'
 "Plugin 'suxpert/vimcaps' " disable CAPSLOCK
 "Plugin 'sudar/vim-arduino-syntax'
@@ -55,22 +61,6 @@ set nolist  " list disables linebreak
 "set wrapmargin=0
 "set formatoptions-=t
 
-" add formatted status line
-"set statusline=%f  " Path to the file
-"set statusline+=\ \   " Separator
-"set statusline+=type:%y  " File Type
-"set statusline+=\ \   " Separator
-"set statusline+=format:[%{&ff}]
-"set statusline+=%=  " Switch to the right side
-"set statusline+=%v  " current column
-"set statusline+=,  " Separator
-"set statusline+=%l  " Current line
-"set statusline+=/  " Separator
-"set statusline+=%L  " Total lines
-"set statusline+=\ \   " Separator
-""set stl+=%{vimcaps#statusline(1)} " show CAPSLOCK status
-"set laststatus=2  " always show status line
-
 " alternate key combination <C-^> for caps locking
 for c in range(char2nr('A'), char2nr('Z'))
   execute 'lnoremap ' . nr2char(c+32) . ' ' . nr2char(c)
@@ -81,23 +71,9 @@ inoremap '' <C-O>:let &l:imi = !&l:imi<CR>
 cnoremap '' <C-^>
 inoremap '' <C-^>
 
-" disable caps lock in normal mode
-au CursorHold * call TurnOffCaps()
-set updatetime=1
-function! Strip(input_string)
-    return substitute(a:input_string, '^\s*\(.\{-}\)\s*$', '\1', '')
-endfunction
-function! Chomp(string)
-    return substitute(a:string, '\n\+$', '', '')
-endfunction
-function! TurnOffCaps()
-    let CapsState = Strip(Chomp(system("xset -q | grep Caps | cut -d':' -f3 | sed 's/[0-9]//g' | sed 's/\s//g' ")))
-    if CapsState=="on"
-        silent! execute ":!xdotool key Caps_Lock"
-    endif
-endfunction
-"autocmd VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
-"autocmd VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
+" completely disable caps lock
+autocmd VimEnter * silent !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+autocmd VimLeave * silent !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
 
 " avoid using ESCAPE key because it's too far :)
 imap jj <Esc> " use jj to escape insert mode
@@ -107,8 +83,6 @@ cno JJ <c-c> " use jj to escape command modes
 
 nmap \nt :NERDTreeTabsToggle<CR> " toggle sidebar
 let g:NERDTreeWinSize = 20
-
-
 
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -165,17 +139,22 @@ nnoremap E $
 "nnoremap $ <nop>
 "nnoremap ^ <nop>
 
+" search and replace word undder cursor
+nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
+nnoremap <Leader>h :nohlsearch<CR>
+
+
 let vim_markdown_preview_github=2
 
 " arduino syntax highlighting
 "au BufRead,BufNewFile *.ino,*.pde,*.cpp set filetype=arduino
 
 
-" search and replace word undder cursor
-nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
-
 " auto adjust height of quick fix window
-au FileType qf call AdjustWindowHeight(3, 10)
+au FileType qf call AdjustWindowHeight(3, 5)
 function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
+
+" customize status line
+let g:airline_theme='papercolor'

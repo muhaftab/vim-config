@@ -7,6 +7,7 @@ let g:vimtex_compiler_latexmk = {
 \ 'callback' : 0,
 \ 'continuous' : 0,
 \}
+let g:vimtex_fold_manual=1
 
 " spell checking
 set spell
