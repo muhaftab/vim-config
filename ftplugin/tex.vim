@@ -8,6 +8,7 @@ let g:vimtex_compiler_latexmk = {
 \ 'continuous' : 0,
 \}
 let g:vimtex_fold_manual=1
+let g:latex_fold_automatic=0
 
 " spell checking
 set spell
