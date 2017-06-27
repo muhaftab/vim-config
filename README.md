@@ -76,6 +76,13 @@ ln -s $DIR/dict ~/.vim/dict
 </pre>
 </li>
 
+&nbsp;
+<li>Link `~/.vim/dict` with the Dropbox `dict` folder
+<pre class="lang:default decode:true">
+ln -s <dropbox>/dict ~/.vim/dict
+</pre>
+</li>
+
 
 &nbsp;
  	<li>Run this command to install plugins.

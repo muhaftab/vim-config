@@ -10,10 +10,8 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, required
 Plugin 'Valloric/YouCompleteMe' " Auto code completion
-Plugin 'lervag/vimtex' " latex plugin
 Plugin 'scrooloose/nerdtree' " sidebar plugin
 Bundle 'jistr/vim-nerdtree-tabs'
-Plugin 'bronson/vim-trailing-whitespace' " hightlight  and remove trailing whitespace
 Plugin 'JamshedVesuna/vim-markdown-preview' " markdown preview (CTRL+p to preview)
 Plugin 'vim-airline/vim-airline' " status bar
 Plugin 'vim-airline/vim-airline-themes' " status bar themes
@@ -21,6 +19,8 @@ Plugin 'godlygeek/tabular'
 Plugin 'ervandew/supertab'
 Plugin 'mattn/emmet-vim'
 "
+"Plugin 'lervag/vimtex' " latex plugin
+"Plugin 'bronson/vim-trailing-whitespace' " hightlight  and remove trailing whitespace
 "Plugin 'vim-syntastic/syntastic'
 "Plugin 'suxpert/vimcaps' " disable CAPSLOCK
 "Plugin 'sudar/vim-arduino-syntax'
@@ -81,7 +81,13 @@ imap JJ <Esc> " use JJ to escape insert mode
 cno jj <c-c> " use jj to escape command modes
 cno JJ <c-c> " use jj to escape command modes
 
-nmap \nt :NERDTreeTabsToggle<CR> " toggle sidebar
+"nmap <Leader>nt :NERDTreeTabsToggle<CR> " toggle sidebar
+nmap <Leader>nt :NERDTreeToggle<CR> " toggle sidebar
+nmap <Leader>q :tabclose<CR>
+" Start NERDTree
+autocmd VimEnter * NERDTree
+" Shift focus to the main window.
+autocmd VimEnter * wincmd p
 let g:NERDTreeWinSize = 20
 
 nnoremap <C-J> <C-W><C-J>
@@ -139,9 +145,15 @@ nnoremap E $
 "nnoremap $ <nop>
 "nnoremap ^ <nop>
 
+" shortcuts
 " search and replace word undder cursor
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
+" find word under cursor
+nnoremap <Leader>f /\<<C-r><C-w>\><CR>
+" turn off highlighted search results
 nnoremap <Leader>h :nohlsearch<CR>
+" remove whitespaces at the end of lines
+nnoremap <Leader>w :%s/\s\+$//<CR>
 
 
 let vim_markdown_preview_github=2
@@ -151,10 +163,11 @@ let vim_markdown_preview_github=2
 
 
 " auto adjust height of quick fix window
-au FileType qf call AdjustWindowHeight(3, 5)
-function! AdjustWindowHeight(minheight, maxheight)
-  exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
-endfunction
+au FileType qf exe 5 . "wincmd _"
+"au FileType qf call AdjustWindowHeight(3, 5)
+"function! AdjustWindowHeight(minheight, maxheight)
+"  exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
+"endfunction
 
 " customize status line
 let g:airline_theme='papercolor'
