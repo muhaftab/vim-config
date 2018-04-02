@@ -66,10 +66,10 @@ for c in range(char2nr('A'), char2nr('Z'))
   execute 'lnoremap ' . nr2char(c+32) . ' ' . nr2char(c)
   execute 'lnoremap ' . nr2char(c) . ' ' . nr2char(c+32)
 endfo
-noremap  '' :let &l:imi = !&l:imi<CR>
-inoremap '' <C-O>:let &l:imi = !&l:imi<CR>
-cnoremap '' <C-^>
-inoremap '' <C-^>
+noremap  <Leader>' :let &l:imi = !&l:imi<CR>
+inoremap <Leader>' <C-O>:let &l:imi = !&l:imi<CR>
+cnoremap <Leader>' <C-^>
+inoremap <Leader>' <C-^>
 
 " completely disable caps lock
 autocmd VimEnter * silent !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
