@@ -12,12 +12,14 @@ Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, required
 Plugin 'Valloric/YouCompleteMe' " Auto code completion
 Plugin 'scrooloose/nerdtree' " sidebar plugin
 Bundle 'jistr/vim-nerdtree-tabs'
-Plugin 'JamshedVesuna/vim-markdown-preview' " markdown preview (CTRL+p to preview)
 Plugin 'vim-airline/vim-airline' " status bar
 Plugin 'vim-airline/vim-airline-themes' " status bar themes
 Plugin 'godlygeek/tabular'
 Plugin 'ervandew/supertab'
 Plugin 'mattn/emmet-vim'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'JamshedVesuna/vim-markdown-preview' " markdown preview (CTRL+p to preview)
+
 "
 "Plugin 'lervag/vimtex' " latex plugin
 "Plugin 'bronson/vim-trailing-whitespace' " hightlight  and remove trailing whitespace
@@ -156,7 +158,13 @@ nnoremap <Leader>h :nohlsearch<CR>
 nnoremap <Leader>w :%s/\s\+$//<CR>
 
 
-let vim_markdown_preview_github=2
+
+" Markdown
+let vim_markdown_preview_github=1
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_math = 1
+let g:vim_markdown_json_frontmatter = 1
+
 
 " arduino syntax highlighting
 "au BufRead,BufNewFile *.ino,*.pde,*.cpp set filetype=arduino
