@@ -19,6 +19,9 @@ Plugin 'ervandew/supertab'
 Plugin 'mattn/emmet-vim'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'JamshedVesuna/vim-markdown-preview' " markdown preview (CTRL+p to preview)
+Plugin 'tpope/vim-surround' " quoting/parenthesizing made simple
+Plugin 'tpope/vim-commentary' " smart commenting
+
 
 "
 "Plugin 'lervag/vimtex' " latex plugin
@@ -34,8 +37,9 @@ Plugin 'JamshedVesuna/vim-markdown-preview' " markdown preview (CTRL+p to previe
 call vundle#end()
 " Put your non-Plugin stuff after this line
 
-colorscheme monokai  " awesome color scheme similar to sublime/textmate
 syntax enable  " enable syntax processing
+colorscheme monokai
+
 filetype plugin indent on  " load filetype-specific indent files
 "filetype plugin on  " used this instead to ignore plugin indent changes
 set ai   " automatic indent based on current line
@@ -83,15 +87,6 @@ imap JJ <Esc> " use JJ to escape insert mode
 cno jj <c-c> " use jj to escape command modes
 cno JJ <c-c> " use jj to escape command modes
 
-"nmap <Leader>nt :NERDTreeTabsToggle<CR> " toggle sidebar
-nmap <Leader>nt :NERDTreeToggle<CR> " toggle sidebar
-nmap <Leader>q :tabclose<CR>
-" Start NERDTree
-autocmd VimEnter * NERDTree
-" Shift focus to the main window.
-autocmd VimEnter * wincmd p
-let g:NERDTreeWinSize = 20
-
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
@@ -101,15 +96,6 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <F1> <nop>
 nnoremap Q <nop>
 nnoremap K <nop>
-
-"Youcompleteme fix
-let g:ycm_echo_current_diagnostic = 1
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-"let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-"let g:ycm_filetype_specific_completion_to_disable = {
-"  \ 'cpp': 0
-"  \ }
 
 " change j,k to navigate screen line instead of file line
 nnoremap j gj
@@ -138,7 +124,6 @@ nnoremap vg$ v$
 nnoremap vg^ v^
 nnoremap vg0 v0
 
-
 " move to beginning/end of line
 nnoremap B ^
 nnoremap E $
@@ -147,7 +132,6 @@ nnoremap E $
 "nnoremap $ <nop>
 "nnoremap ^ <nop>
 
-" shortcuts
 " search and replace word undder cursor
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
 " find word under cursor
@@ -157,19 +141,6 @@ nnoremap <Leader>h :nohlsearch<CR>
 " remove whitespaces at the end of lines
 nnoremap <Leader>w :%s/\s\+$//<CR>
 
-
-
-" Markdown
-let vim_markdown_preview_github=1
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_math = 1
-let g:vim_markdown_json_frontmatter = 1
-
-
-" arduino syntax highlighting
-"au BufRead,BufNewFile *.ino,*.pde,*.cpp set filetype=arduino
-
-
 " auto adjust height of quick fix window
 au FileType qf exe 5 . "wincmd _"
 "au FileType qf call AdjustWindowHeight(3, 5)
@@ -177,5 +148,25 @@ au FileType qf exe 5 . "wincmd _"
 "  exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 "endfunction
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugin Configuration
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " customize status line
 let g:airline_theme='papercolor'
+
+"nmap <Leader>nt :NERDTreeTabsToggle<CR> " toggle sidebar
+nmap <Leader>nt :NERDTreeToggle<CR> " toggle sidebar
+nmap <Leader>q :tabclose<CR>
+" Start NERDTree
+autocmd VimEnter * NERDTree
+" Shift focus to the main window.
+autocmd VimEnter * wincmd p
+let g:NERDTreeWinSize = 20
+
+"Youcompleteme fix
+let g:ycm_echo_current_diagnostic = 1
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+"let g:ycm_filetype_specific_completion_to_disable = {
+"  \ 'cpp': 0
+"  \ }

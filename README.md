@@ -59,27 +59,28 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim</
 &nbsp;
  	<li>Clone this repo
 <pre class="lang:default decode:true">
-git clone https://github.com/muhaftab/vim-config.git /path/to/cloned/repo</pre>
+DIR=~/Repos/vim-config
+git clone https://github.com/muhaftab/vim-config.git $DIR</pre>
 </li>
 
 
 &nbsp;
 <li>Create symlinks to point to repo contents
 <pre class="lang:default decode:true">
-DIR=/path/to/cloned/repo
-ln -s $DIR/.vimrc ~/.vimrc
+ln -s $DIR/vimrc ~/.vimrc
+ln -s $DIR/ideavimrc ~/.ideavimrc
 ln -s $DIR/colors ~/.vim/colors
-ln -s $DIR/syntax ~/.vim/syntax
+ln -s $DIR/ftdetect ~/.vim/ftdetect
 ln -s $DIR/ftplugin ~/.vim/ftplugin
 ln -s $DIR/plugin ~/.vim/plugin
-ln -s $DIR/dict ~/.vim/dict
+ln -s $DIR/syntax ~/.vim/syntax
 </pre>
 </li>
 
 &nbsp;
 <li>Link `~/.vim/dict` with the Dropbox `dict` folder
 <pre class="lang:default decode:true">
-ln -s <dropbox>/dict ~/.vim/dict
+ln -s ~/Dropbox/linux/vim/dict ~/.vim/dict
 </pre>
 </li>
 

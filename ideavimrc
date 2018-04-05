@@ -1,0 +1,19 @@
+set showcmd
+set wildmenu
+set showmatch
+set incsearch
+set hlsearch
+"set pastetoggle=<F2>
+set wrap
+imap jj <Esc>
+imap JJ <Esc>
+cno jj <c-c>
+cno JJ <c-c>
+
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" turn off highlighted search results
+nnoremap <Leader>h :nohlsearch<CR>
